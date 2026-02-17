@@ -1,26 +1,93 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #FFF8F4;
+  --color-foreground: #1C1917;
+
+  /* Warm peach + deep violet palette — eye-catching & completely unique */
+  --color-primary: #7C3AED;         /* violet-600 — main CTA */
+  --color-primary-hover: #6D28D9;   /* violet-700 */
+  --color-coral: #FF6B47;           /* warm coral accent */
+  --color-neon-cyan: #7C3AED;       /* mapped → violet (primary) */
+  --color-neon-purple: #A855F7;     /* violet lighter */
+  --color-neon-pink: #EC4899;       /* pink */
+  --color-neon-green: #10B981;      /* emerald */
+  --color-neon-amber: #D97706;      /* amber */
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --animate-glow-pulse: glow-pulse 2s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+/* Warm peach-to-violet gradient background — completely different from sky blue */
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 5%   5%,  rgba(255, 120,  80, 0.22) 0%, transparent 45%),
+    radial-gradient(ellipse at 95%  8%,  rgba(124,  58, 237, 0.18) 0%, transparent 45%),
+    radial-gradient(ellipse at 80%  90%, rgba(236,  72, 153, 0.14) 0%, transparent 40%),
+    radial-gradient(ellipse at 15%  85%, rgba(252, 211,  77, 0.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 50%  50%, rgba(255, 255, 255, 0.6)  0%, transparent 60%),
+    #FFF0E8;
+}
+
+/* Clean white card with warm-violet shadow */
+.glass {
+  background: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(124, 58, 237, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 4px 32px rgba(124, 58, 237, 0.1), 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.glass-sm {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(124, 58, 237, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(124, 58, 237, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2), 0 6px 28px rgba(124, 58, 237, 0.15);
+}
+.glow-purple {
+  box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2), 0 6px 28px rgba(168, 85, 247, 0.15);
+}
+.glow-pink {
+  box-shadow: 0 0 0 2px rgba(236, 72, 153, 0.2), 0 6px 28px rgba(236, 72, 153, 0.15);
+}
+
+/* Vibrant coral → violet → pink gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #FF6B47, #7C3AED, #EC4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(124, 58, 237, 0.25); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(124, 58, 237, 0.45); }
