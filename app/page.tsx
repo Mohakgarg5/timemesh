@@ -39,18 +39,20 @@ export default function HomePage() {
         initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
 
         {/* Brand */}
-        <motion.div className="inline-flex items-center gap-2.5 mb-7"
-          initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 }}>
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-lg">
-            <span className="text-xl">📅</span>
-          </div>
-          <span className="text-2xl font-black text-stone-800 tracking-tight">TimeMesh</span>
-        </motion.div>
+        <div className="flex flex-col items-center gap-4 mb-7">
+          <motion.div className="inline-flex items-center gap-2.5"
+            initial={{ opacity: 0, scale: 0.85 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.1 }}>
+            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-500 to-pink-500 flex items-center justify-center shadow-lg">
+              <span className="text-xl">📅</span>
+            </div>
+            <span className="text-2xl font-black text-stone-800 tracking-tight">TimeMesh</span>
+          </motion.div>
 
-        <motion.span className="inline-block mb-5 px-4 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-sm text-violet-700 font-semibold"
-          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}>
-          Free &amp; No Sign-up Required ✨
-        </motion.span>
+          <motion.span className="inline-block px-4 py-1.5 rounded-full bg-violet-50 border border-violet-200 text-sm text-violet-700 font-semibold"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.18 }}>
+            Free &amp; No Sign-up Required ✨
+          </motion.span>
+        </div>
 
         <h1 className="text-5xl md:text-[3.75rem] font-black mb-5 leading-[1.1] text-stone-900">
           Stop the endless{' '}
