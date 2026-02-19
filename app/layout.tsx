@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: "TimeMesh - Find the Perfect Meeting Time",
   description:
     "Free group scheduling tool. Paint your availability, see overlap in real-time, and find the best meeting time for everyone.",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
