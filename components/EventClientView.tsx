@@ -135,7 +135,7 @@ export function EventClientView({ event, participants:initP, heatmap:initH, time
 
               {tab==='edit' && <PriorityToolbar currentPriority={priority} onPriorityChange={setPriority} />}
 
-              <GlassCard animate={false} className="!p-2 md:!p-4 overflow-x-auto">
+              <GlassCard animate={false} className="!p-2 md:!p-4">
                 <TimeGrid dates={event.dates} timeSlots={timeSlots} selections={selections}
                   onSelectionChange={setSels} currentPriority={priority}
                   heatmapData={tab==='view'?hmGrid:undefined} mode={tab} />

@@ -57,8 +57,9 @@ export function TimeGrid({ dates, timeSlots, selections, onSelectionChange, curr
   const totalP = heatmapData ? Math.max(...Array.from(heatmapData.values()).map(d => d.total), 1) : 1
 
   return (
-    <div className="select-none overflow-x-auto" onPointerUp={() => setPaintState('idle')} onPointerLeave={() => setPaintState('idle')}>
-      <div className="grid gap-[2px] min-w-fit" style={{ gridTemplateColumns: `52px repeat(${dates.length}, minmax(44px, 1fr))`, touchAction: 'none' }}>
+    <div className="select-none" onPointerUp={() => setPaintState('idle')} onPointerLeave={() => setPaintState('idle')}>
+      <div className="overflow-x-auto">
+      <div className="grid gap-[2px] min-w-fit" style={{ gridTemplateColumns: `48px repeat(${dates.length}, minmax(40px, 1fr))`, touchAction: 'none' }}>
 
         {/* Header */}
         <div className="h-12" />
@@ -124,6 +125,7 @@ export function TimeGrid({ dates, timeSlots, selections, onSelectionChange, curr
             })}
           </Fragment>
         ))}
+      </div>
       </div>
     </div>
   )

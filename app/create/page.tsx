@@ -29,7 +29,9 @@ export default function CreateEventPage() {
   const [slot, setSlot] = useState(30)
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
+  const [tz, setTz] = useState(() =>
+    typeof window !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'America/New_York'
+  )
 
   const submit = async () => {
     setErr('')
@@ -113,11 +115,41 @@ export default function CreateEventPage() {
           </GlassCard>
 
           <GlassCard animate={false}>
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-base">🌍</span>
-              <span className="text-stone-400">Timezone:</span>
-              <span className="text-violet-600 font-semibold">{tz}</span>
-            </div>
+            <p className="text-sm font-bold text-stone-500 mb-3">🌍 Timezone</p>
+            <select
+              value={tz}
+              onChange={e => setTz(e.target.value)}
+              className="w-full px-3 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-800 text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all cursor-pointer"
+            >
+              {[
+                ['Pacific/Honolulu',       'Hawaii (HST)'],
+                ['America/Anchorage',      'Alaska (AKST)'],
+                ['America/Los_Angeles',    'Pacific (PST/PDT)'],
+                ['America/Denver',         'Mountain (MST/MDT)'],
+                ['America/Phoenix',        'Arizona (MST)'],
+                ['America/Chicago',        'Central (CST/CDT)'],
+                ['America/New_York',       'Eastern (EST/EDT)'],
+                ['America/Halifax',        'Atlantic (AST)'],
+                ['America/Sao_Paulo',      'Brazil (BRT)'],
+                ['America/Argentina/Buenos_Aires', 'Argentina (ART)'],
+                ['Europe/London',          'London (GMT/BST)'],
+                ['Europe/Paris',           'Central Europe (CET/CEST)'],
+                ['Europe/Helsinki',        'Eastern Europe (EET/EEST)'],
+                ['Europe/Moscow',          'Moscow (MSK)'],
+                ['Asia/Dubai',             'Dubai (GST)'],
+                ['Asia/Kolkata',           'India (IST)'],
+                ['Asia/Dhaka',             'Bangladesh (BST)'],
+                ['Asia/Bangkok',           'Indochina (ICT)'],
+                ['Asia/Singapore',         'Singapore (SGT)'],
+                ['Asia/Shanghai',          'China (CST)'],
+                ['Asia/Tokyo',             'Japan (JST)'],
+                ['Asia/Seoul',             'Korea (KST)'],
+                ['Australia/Sydney',       'Sydney (AEST/AEDT)'],
+                ['Pacific/Auckland',       'New Zealand (NZST/NZDT)'],
+              ].map(([val, label]) => (
+                <option key={val} value={val}>{label} — {val}</option>
+              ))}
+            </select>
           </GlassCard>
 
           {err && (
