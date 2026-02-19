@@ -70,7 +70,7 @@ export function EventClientView({ event, participants:initP, heatmap:initH, time
   Object.entries(heatmap).forEach(([k,c])=>hmGrid.set(k,{...c,total:totalP}))
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen py-4 md:py-8 px-3 md:px-4">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
@@ -122,10 +122,10 @@ export function EventClientView({ event, participants:initP, heatmap:initH, time
 
             <div className="space-y-4">
               {/* Tabs */}
-              <div className="inline-flex bg-stone-100 rounded-2xl p-1 gap-1">
+              <div className="flex bg-stone-100 rounded-2xl p-1 gap-1 w-full sm:w-auto sm:inline-flex">
                 {(['edit','view'] as const).map(t => (
                   <button key={t} onClick={()=>setTab(t)}
-                    className={`px-5 py-2 rounded-xl text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
+                    className={`flex-1 sm:flex-none px-3 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                       tab===t ? 'bg-violet-600 text-white shadow-sm' : 'text-stone-500 hover:text-violet-600'
                     }`}>
                     {t==='edit' ? '🎨 Mark Availability' : '🔥 Group Heatmap'}
@@ -135,7 +135,7 @@ export function EventClientView({ event, participants:initP, heatmap:initH, time
 
               {tab==='edit' && <PriorityToolbar currentPriority={priority} onPriorityChange={setPriority} />}
 
-              <GlassCard animate={false} className="!p-4 overflow-hidden">
+              <GlassCard animate={false} className="!p-2 md:!p-4 overflow-x-auto">
                 <TimeGrid dates={event.dates} timeSlots={timeSlots} selections={selections}
                   onSelectionChange={setSels} currentPriority={priority}
                   heatmapData={tab==='view'?hmGrid:undefined} mode={tab} />

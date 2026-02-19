@@ -32,10 +32,10 @@ const features = [
 export default function HomePage() {
   const router = useRouter()
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-8 md:py-16">
 
       {/* Hero */}
-      <motion.div className="text-center max-w-2xl mx-auto mb-14"
+      <motion.div className="text-center max-w-2xl mx-auto mb-8 md:mb-14"
         initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }}>
 
         {/* Brand */}
@@ -54,12 +54,12 @@ export default function HomePage() {
           </motion.span>
         </div>
 
-        <h1 className="text-5xl md:text-[3.75rem] font-black mb-5 leading-[1.1] text-stone-900">
+        <h1 className="text-3xl sm:text-5xl md:text-[3.75rem] font-black mb-5 leading-[1.1] text-stone-900">
           Stop the endless{' '}
           <span className="gradient-text">"when are you free?"</span>
         </h1>
 
-        <p className="text-lg text-stone-500 mb-10 max-w-lg mx-auto leading-relaxed">
+        <p className="text-base md:text-lg text-stone-500 mb-6 md:mb-10 max-w-lg mx-auto leading-relaxed">
           Create an event, share the link, and let everyone paint their availability.
           TimeMesh finds the perfect meeting time automatically.
         </p>
@@ -91,7 +91,7 @@ export default function HomePage() {
       </div>
 
       {/* Steps */}
-      <motion.div className="mt-20 max-w-3xl mx-auto w-full text-center"
+      <motion.div className="mt-10 md:mt-20 max-w-3xl mx-auto w-full text-center"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
         <h2 className="text-2xl font-black text-stone-800 mb-10">
           Ready in <span className="gradient-text">4 steps</span>
