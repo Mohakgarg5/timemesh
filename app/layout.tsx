@@ -25,13 +25,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="icon"
-          type="image/svg+xml"
-          href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI0ZGOEM2OSIvPjxyZWN0IHg9IjciIHk9IjciIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIxLjUiIGZpbGw9IndoaXRlIi8+PHJlY3QgeD0iMTUiIHk9IjciIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIxLjUiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjU1Ii8+PHJlY3QgeD0iNyIgeT0iMTUiIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHJ4PSIxLjUiIGZpbGw9IndoaXRlIiBvcGFjaXR5PSIwLjU1Ii8+PHJlY3QgeD0iMTUiIHk9IjE1IiB3aWR0aD0iNiIgaGVpZ2h0PSI2IiByeD0iMS41IiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC4zIi8+PC9zdmc+"
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
