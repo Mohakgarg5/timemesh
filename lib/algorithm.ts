@@ -97,62 +97,67 @@ export function findBestTimes(
     }
   }
 
-  // Find contiguous blocks on each date
+  // Find contiguous blocks at each participation level so that a perfect-match
+  // slot nested inside a longer lower-quality run is surfaced as its own block.
   const blocks: RankedTimeBlock[] = []
+  const seenBlockKeys = new Set<string>()
 
   for (const date of dates) {
-    const dateSlots = timeSlots
-      .map((slot) => slotScores.get(`${date}|${slot}`))
-      .filter((s): s is SlotScore => s !== undefined && s.totalCount > 0)
+    // All slots in timeSlot order (including zero-count slots — gaps break runs)
+    const allSlots = timeSlots.map((slot) => slotScores.get(`${date}|${slot}`)!)
 
-    if (dateSlots.length === 0) continue
+    // Unique non-zero participant counts, highest first
+    const uniqueCounts = [
+      ...new Set(allSlots.map((s) => s.totalCount).filter((c) => c > 0)),
+    ].sort((a, b) => b - a)
 
-    // Find contiguous runs
-    let blockStart = 0
-    while (blockStart < dateSlots.length) {
-      let blockEnd = blockStart + 1
+    for (const minCount of uniqueCounts) {
+      let i = 0
+      while (i < allSlots.length) {
+        if (allSlots[i].totalCount < minCount) {
+          i++
+          continue
+        }
 
-      // Extend the block while slots are contiguous in the timeSlots array
-      while (blockEnd < dateSlots.length) {
-        const prevIdx = timeSlots.indexOf(dateSlots[blockEnd - 1].timeSlot)
-        const currIdx = timeSlots.indexOf(dateSlots[blockEnd].timeSlot)
-        if (currIdx !== prevIdx + 1) break
-        blockEnd++
+        // Extend as long as slots are contiguous AND meet the minCount threshold
+        let j = i + 1
+        while (j < allSlots.length && allSlots[j].totalCount >= minCount) {
+          j++
+        }
+
+        const blockSlots = allSlots.slice(i, j)
+        const blockKey = `${date}|${blockSlots[0].timeSlot}|${blockSlots[blockSlots.length - 1].timeSlot}`
+
+        if (!seenBlockKeys.has(blockKey) && blockSlots.length >= minDurationSlots) {
+          seenBlockKeys.add(blockKey)
+
+          const totalScore = blockSlots.reduce((sum, s) => sum + s.score, 0)
+          const allParticipantsInBlock = [
+            ...new Set(blockSlots.flatMap((s) => s.participants)),
+          ]
+          const allMissing = allParticipantNames.filter(
+            (n) => !blockSlots.every((s) => s.participants.includes(n))
+          )
+
+          blocks.push({
+            rank: 0,
+            date,
+            startSlot: blockSlots[0].timeSlot,
+            endSlot: blockSlots[blockSlots.length - 1].timeSlot,
+            slotCount: blockSlots.length,
+            avgScore: totalScore / blockSlots.length,
+            totalScore,
+            minParticipants: Math.min(...blockSlots.map((s) => s.totalCount)),
+            maxParticipants: Math.max(...blockSlots.map((s) => s.totalCount)),
+            participants: allParticipantsInBlock,
+            missing: allMissing,
+            isPerfectMatch:
+              allMissing.length === 0 && allParticipantNames.length > 0,
+          })
+        }
+
+        i = j
       }
-
-      const blockSlots = dateSlots.slice(blockStart, blockEnd)
-
-      if (blockSlots.length >= minDurationSlots) {
-        const totalScore = blockSlots.reduce((sum, s) => sum + s.score, 0)
-        const allParticipantsInBlock = [
-          ...new Set(blockSlots.flatMap((s) => s.participants)),
-        ]
-        const allMissing = [
-          ...new Set(
-            allParticipantNames.filter(
-              (n) => !blockSlots.every((s) => s.participants.includes(n))
-            )
-          ),
-        ]
-
-        blocks.push({
-          rank: 0,
-          date,
-          startSlot: blockSlots[0].timeSlot,
-          endSlot: blockSlots[blockSlots.length - 1].timeSlot,
-          slotCount: blockSlots.length,
-          avgScore: totalScore / blockSlots.length,
-          totalScore,
-          minParticipants: Math.min(...blockSlots.map((s) => s.totalCount)),
-          maxParticipants: Math.max(...blockSlots.map((s) => s.totalCount)),
-          participants: allParticipantsInBlock,
-          missing: allMissing,
-          isPerfectMatch:
-            allMissing.length === 0 && allParticipantNames.length > 0,
-        })
-      }
-
-      blockStart = blockEnd
     }
   }
 
